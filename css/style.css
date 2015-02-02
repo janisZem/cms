@@ -1,0 +1,69 @@
+/* 
+    Created on : 2015.19.1, 21:27:50
+    Author     : janis
+*/
+body{
+    overflow-x:hidden;
+}
+.draggable { 
+    width: 300px; 
+    height: 200px; 
+    //padding: 1px; 
+    float: left; 
+    margin: 10px 10px 10px 0;
+    cursor: auto;
+    //border: 1px solid #aaaaaa;
+    padding:5px;
+    position: absolute;
+    cursor:move;
+
+}
+
+.draggable:hover { 
+    background-color: rgba(0, 0, 0, 0.08);
+    //opacity: 0.4;
+}
+
+
+
+.show {
+    z-index:100;
+    position: absolute;
+    background-color:#C0C0C0;
+    padding: 2px;
+    display: block !important;
+    margin: 0;
+    list-style-type: none;
+    list-style: none;
+}
+#mouse_menu {
+    display:none;
+    padding:10px;                
+}
+.draggable-textbox{
+    max-height: calc(100% - 10px);
+    min-height: calc(100% - 10px);
+    max-width: calc(100% - 10px);
+    min-width: calc(100% - 10px);
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
+}
+
+.editTools{
+    position: absolute;
+    display: block !important;
+    z-index: 100;
+    width:170px;
+    height: 20px;
+    background: #C0C0C0;
+    margin-top: -25px;
+    list-style-type: none;
+}
+.edit-tool-item{
+    float: left;
+    margin-right:3px;
+    cursor:pointer;
+}
+#open_modal{
+    width: 400px;
+}
