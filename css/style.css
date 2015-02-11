@@ -2,8 +2,11 @@
     Created on : 2015.19.1, 21:27:50
     Author     : janis
 */
+
 body{
-    overflow-x:hidden;
+    margin: 0px;
+    padding: 0px;
+    overflow-y: scroll;
 }
 .draggable { 
     width: 300px; 
@@ -24,21 +27,20 @@ body{
     //opacity: 0.4;
 }
 
-
-
 .show {
-    z-index:100;
+    z-index:98;
     position: absolute;
     background-color:#C0C0C0;
     padding: 2px;
-    display: block !important;
+    display: inline !important;
     margin: 0;
-    list-style-type: none;
-    list-style: none;
 }
 #mouse_menu {
     display:none;
     padding:10px;                
+}
+.mouse-menu-item{
+    cursor:pointer;
 }
 .draggable-textbox{
     max-height: calc(100% - 10px);
@@ -64,6 +66,50 @@ body{
     margin-right:3px;
     cursor:pointer;
 }
-#open_modal{
-    width: 400px;
+
+#hider{
+    position:absolute;
+    top: 0%;
+    left: 0%;
+    width:100%;
+    z-index: 99;
+    background-color:rgba(0, 0, 0, 0.8);
+    display:none;
+}
+
+#popup_box{    
+    position:absolute;
+    //top: 50%;
+    left: 50%;
+    width:500px;
+    height:200px;
+    margin-top: -80px; /*set to a negative number 1/2 of your height???*/
+    margin-left: -250px; /*set to a negative number 1/2 of your width ??*/
+    border: 1px solid #ccc;
+    border:  2px solid black;
+    z-index:100; 
+    display: none;
+}
+.pop-up-text{
+    width:100%;
+    height:100%;
+}
+#header_menu_container{
+    position: fixed;
+    width: 100%;
+    height:25px;
+    position: fixed;
+    top:0;
+    z-index:95;
+    background:rgba(0, 0, 0, 0.1);
+}
+#header_menu{
+    position: relative;
+    left:50%;
+    margin-left: -250px;
+    width: 500px;
+    //background:rgba(0, 0, 0, 0.1);
+}
+.header-menu-item{
+    cursor: pointer;
 }

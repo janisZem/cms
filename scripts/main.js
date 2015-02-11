@@ -2,27 +2,37 @@ var x = 0;
 var y = 0;
 
 $(document).keydown(function (e) {
-    if (e.keyCode === 27) {
-        $('#mouse_menu').removeClass('show')
+    if (e.keyCode === 27) { //esc  
+        $('#mouse_menu').removeClass('show');
+        hidePopUp();
     }
 });
-
+/*
+ * 
+ * some events may be saved to url, for page refresh and golbal variables
+ * add alert on page leave or refresh
+ */
 if (document.addEventListener) {
     document.addEventListener('contextmenu', function (e) {
         if (e.button === 2) {
-            x = e.clientX;
-            y = e.clientY;
+            x = e.clientX; //!!!!
+            y = e.pageY;
             $('#mouse_menu').addClass('show');
             $('#mouse_menu').attr('style', 'margin-left:' + x + 'px; margin-top:' + y + 'px;');
         }
         e.preventDefault();
     }, false);
 }
-
-function createElem(type) {
+/*
+ * 
+ * @param {int} type: 1 - paragraph(text)
+ * @param {char} opener: h - header menu, m - mouse menu
+ * @returns create new html element
+ */
+function createElem(type, opener) {
     $('#mouse_menu').removeClass('show');
     if (type === 1) {
-        $('body').append(createParagraph());
+        $('body').append(createParagraph(opener));
     }
     $(".draggable").draggable({
         scroll: true,
@@ -39,7 +49,28 @@ function createElem(type) {
  * status - 0000 - created, 0001 - saved
  * @returns {String}
  */
-function createParagraph() {
+function createParagraph(opener) {
+    var countX = x - window.innerWidth / 2;
+    var countY = y - (window.pageYOffset + (window.outerHeight / 2));
+    console.log('x ' + x);
+    console.log(y);
+    console.log('countY ' + countY);
+    console.log('countX ' + countX);
+    if (countX > 9) { //at different position 
+        countX += 10;
+    } else {
+        countX = 10;
+    }
+    if (countY > 19) {
+        countY += 20;
+    } else {
+        countY = 20;
+    }
+    if (opener === 'h') { //header menu
+        console.log(countY);
+        y = (window.pageYOffset + window.outerHeight / 2) + countY;
+        x = ((window.innerWidth / 2) + countX);
+    }
     var id = newId();
     var elem = '<div id="paragaph' + id + '"\n\
                      onmouseover="showEditTools(this)" \n\
@@ -100,8 +131,8 @@ function editElem(elem) {
         var text = $(elem).children('p').text();
         $(elem).children('p').remove();
         $(elem).append('<textarea class="draggable-textbox">' + text + '</textarea>');
-        changeStatus(elem.id, '0000'); //why not single elem?
         removeTools(elem);
+        changeStatus(elem.id, '0000'); //why not single elem?
     }
 }
 
@@ -109,33 +140,19 @@ function openModal(elem) {
 
 }
 
-function openPopUp(elem) { //rewrite
-    $("body").css("overflow", "hidden");
-    $('#open_modal').children('textarea').wysiwyg();
-    $('#open_modal').dialog({
-        resizable: false,
-        modal: true,
-        title: "Labot ",
-        height: 350,
-        width: 700,
-        buttons: {
-            "Saglabāt": function () {
+function openPopUp(elem) {
+    var h = window.pageYOffset + window.outerHeight;
+    var top = window.pageYOffset + window.outerHeight / 2; //tested chrome/firefox/ie
+    $('#popup_box').attr('style', 'display:inline; top:' + top + 'px;');
+    $('#hider').attr('style', 'display:inline; height:' + h + 'px;');
+    $('body').attr('style', 'overflow:hidden;');
+    removeTools(elem);
+}
 
-                $(this).dialog('close');
-            },
-            "Atcelt": function () {
-                $(this).dialog('close');
-            }
-        },
-        beforeClose: function () {
-            $("body").css("overflow", "auto");
-        }
-    });
-    var elem = $(".ui-dialog-buttonset")[0].firstChild;
-    $('#ui-id-1').hide();
-    $(elem.firstChild).css("background-color", "#CBE32D !important");
-    $(elem.firstChild).css("border", "0px solid rgba(0, 0, 0, 0.6) !important");
-    $(elem).addClass("btn-shine");
+function hidePopUp() {
+    $('#popup_box').hide();
+    $('#hider').hide();
+    $('body').attr('style', 'overflow:auto;');
 }
 
 function deleteElem(elem) {
