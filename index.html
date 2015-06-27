@@ -6,7 +6,9 @@
         <link rel="stylesheet" href="css/jquery-ui.css">
         <script src="scripts/jquery.js"></script>
         <script src="scripts/jquery-ui.js"></script>
-        <script src="scripts/main.js"></script>
+        <!--  <script src="scripts/main.js"></script> -->
+        <script src="scripts/main2.js"></script>
+        <script src="scripts/pop-up-formater.js"></script>
         <link rel="stylesheet" href="css/style.css">
         <!--editot liberies -->
         <!-- jquery<link rel="stylesheet" type="text/css" href="editor/lib/blueprint/screen.css" media="screen, projection" /> -->
@@ -25,18 +27,26 @@
     <body>
         <div id="header_menu_container">
             <div id="header_menu">
-                <a onclick="createElem(1, 'h');" class="header-menu-item">Teksts</a>
+                <a onclick="PAGE.ELEMENT.TEXT.create('h');" class="header-menu-item">Teksts</a>
                 <a>Links</a>
                 <a>Saglabāt</a>
             </div>
         </div>
         <div id="mouse_menu">
-            <a onclick="createElem(1);" class="mouse-menu-item" >Teksts</a><br/>
+            <a onclick="PAGE.ELEMENT.TEXT.create()" class="mouse-menu-item" >Teksts</a><br/>
             <a onclick="console.log(document)" class="mouse-menu-item">GetHTML</a><br/>
             <a onclick="$(this).parent().removeClass('show')">Atcelt</a><br/>
             <a class="mouse-menu-item">Link 4</a><br/>
         </div>
-        <div id="popup_box"><textarea class="pop-up-text">dsadsa</textarea></div>
+        <div id="popup_box">
+            <div class="popup-menu" onclick="POPUP.bold(this)">Bold</div>
+            <div class="popup-menu">Underscore</div>
+            <div class="popup-menu">>>></div>
+            <div class="popup-menu"><<<</div>
+            <textarea class="pop-up-text"></textarea>
+            <div id="pop_up_save" class="pop-up-button">Saglabāt</div>
+            <div onclick="PAGE.POPUP.close()" class="pop-up-button">Atcelt</div>
+        </div>
         <div id="hider"></div>
     </body>
 </html>

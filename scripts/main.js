@@ -50,12 +50,11 @@ function createElem(type, opener) {
  * @returns {String}
  */
 function createParagraph(opener) {
-    var countX = x - window.innerWidth / 2;
-    var countY = y - (window.pageYOffset + (window.outerHeight / 2));
-    console.log('x ' + x);
-    console.log(y);
-    console.log('countY ' + countY);
-    console.log('countX ' + countX);
+
+    var countX = (x + 200 - window.innerWidth / 2);
+    var countY = (y + 200 - (window.pageYOffset + (window.outerHeight / 2)));
+
+
     if (countX > 9) { //at different position 
         countX += 10;
     } else {
@@ -67,9 +66,10 @@ function createParagraph(opener) {
         countY = 20;
     }
     if (opener === 'h') { //header menu
-        console.log(countY);
-        y = (window.pageYOffset + window.outerHeight / 2) + countY;
-        x = ((window.innerWidth / 2) + countX);
+
+        y = (window.pageYOffset + window.outerHeight / 2) + countY - 200;
+        x = ((window.innerWidth / 2) + countX) - 200;
+
     }
     var id = newId();
     var elem = '<div id="paragaph' + id + '"\n\
@@ -106,7 +106,7 @@ function showEditTools(elem) {
     editTools += '<div onclick="openPopUp(' + elem.id + ')" class="edit-tool-item">Formatēt</div>';
     editTools += '<div onclick="deleteElem(' + elem.id + ')" class="edit-tool-item">Dzēst</div>';
     editTools += '</div>';
-    $($(elem).children()[0]).before(editTools);
+    $(elem).children().first().before(editTools);
 }
 function saveElem(elem) {
     if (elem.id.indexOf("paragaph") === 0) {
@@ -136,17 +136,17 @@ function editElem(elem) {
     }
 }
 
-function openModal(elem) {
-
-}
-
 function openPopUp(elem) {
+    console.log(elem);
     var h = window.pageYOffset + window.outerHeight;
     var top = window.pageYOffset + window.outerHeight / 2; //tested chrome/firefox/ie
+    $('#popup_box').children().first().text(getElemValue(elem));
     $('#popup_box').attr('style', 'display:inline; top:' + top + 'px;');
     $('#hider').attr('style', 'display:inline; height:' + h + 'px;');
     $('body').attr('style', 'overflow:hidden;');
     removeTools(elem);
+
+    //cpy text
 }
 
 function hidePopUp() {
@@ -170,6 +170,20 @@ function getElemStatus(elem) {
 
 function changeStatus(elem, status) {
     $('#status_' + elem).val(status);
+}
+
+function getElemValue(elem){
+    if (elem.id.indexOf("paragaph") === 0) {
+        if(getElemStatus(elem) === '0000'){
+            console.log(elem);
+            console.log($(elem).children("textarea").text());
+            
+            return $(elem).children('textarea').text();
+            //console.log(elem);
+        }
+        
+    }
+    
 }
 
 function blockElem(elem) {
